@@ -1,5 +1,6 @@
 import sys
 import logging
+import warnings
 from humanfriendly.terminal import terminal_supports_colors
 
 
@@ -32,11 +33,13 @@ def get_logger(name: str, level: str = logging.DEBUG):
 
 
 def set_color_trackback(color_scheme: str = 'Neutral'):
+    warnings.warn('Color trackback is default since python3.13. The function now is hence redundant.', DeprecationWarning)
+    return
     try:
         from IPython.core.ultratb import AutoFormattedTB
         sys.excepthook = AutoFormattedTB(color_scheme=color_scheme)
     except ModuleNotFoundError:
-        print('IPython not installed. Colored Traceback will not be populated.')
+        print('IPython not installed. Colored Trackback will not be populated.')
 
 
 __all__ = ['get_logger', 'set_color_trackback']
